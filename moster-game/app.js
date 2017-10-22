@@ -14,27 +14,45 @@ new Vue ({
       },
       attack: function() {
 
-        this.mosterHealth -= this.calculeteDamage(10,3);
+       this.mosterHealth -= this.calculeteDamage(10,3);
 
        if(this.checkWin()){
          return
        }
 
-        damage = this.calculeteDamage(5,12);
-        this.playerHealth -= damage;
-        if (this.playerHealth <= 0) {
-          alert("You Lost!")
-        }
-        this.checkWin();
+       this.mosterAttack();
 
         },
 
         specialattack:function(){
 
+          this.mosterHealth -= this.calculeteDamage(10,20);
+          if(this.checkWin()){
+            return
+          }
+           this.mosterAttack();
+        },
+
+        mosterAttack: function(){
+          this.playerHealth -= this.calculeteDamage(5,12);
+          if (this.playerHealth <= 0) {
+            alert("You Lost!")
+          }
+          this.checkWin();
         },
 
         heal: function(){
+          if(this.playerHealth >= 90){
+              this.playerHealth += 10;
+          }else {
+              this.playerHealth =100;
+          }
+           this.mosterAttack();
 
+        },
+
+        giveUp: function(){
+          this.gameIsrunning = false;
         },
 
         calculeteDamage: function(max, min){
